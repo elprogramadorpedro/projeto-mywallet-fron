@@ -19,7 +19,7 @@ export default function Login() {
 						email,
 						password,
 					};
-					const promise = axios.post("http://192.168.0.4:5000/sign-in", login);
+					const promise = axios.post("https://proj-mywallet.herokuapp.com/sign-in", login);
 					promise.then((response) => {
 						localStorage.setItem("token", response.data);
 						navigate("/");
@@ -47,7 +47,7 @@ export default function Login() {
 				<button>Entrar</button>
 				{campoErrado ? <p>Usuario ou senha incorretos!</p> : <></>}
 			</form>
-			<Link to='/cadastro'>
+			<Link to='/sign-up'>
 				<a>Primeira vez? Cadastre-se!</a>
 			</Link>
 		</Body>

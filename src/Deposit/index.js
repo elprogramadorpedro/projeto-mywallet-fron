@@ -1,12 +1,52 @@
 import styled from "styled-components";
+import { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function Deposit() {
+	const type = "deposit";
+	const navigate = useNavigate();
+
+	//States
+	const [value, setValue] = useState(0);
+	const [description, setDescription] = useState("");
 	return (
 		<Body>
 			<p>Nova entrada</p>
-			<form>
-				<input type='text' placeholder='Valor' />
-				<input type='text' placeholder='Descrição' />
+			<form
+				onSubmit={(e) => {
+					e.preventDefault();
+					const data = {
+						value: value,
+						description: description,
+						type: type,
+					};
+					const promise = axios.post(
+						"https://proj-mywallet.herokuapp.com/transition",
+						data,
+						{
+							headers: {
+								'Authorization': `Bearer ${localStorage.getItem("token")}`,
+							},
+						},
+					);
+					promise.then(() => navigate("/"));
+					promise.catch(() => console.log("probleminha"));
+				}}>
+				<input
+					type='number'
+					placeholder='Valor'
+					onChange={(e) => {
+						setValue(e.target.value);
+					}}
+				/>
+				<input
+					type='text'
+					placeholder='Descrição'
+					onChange={(e) => {
+						setDescription(e.target.value);
+					}}
+				/>
 				<button>Salvar entrada</button>
 			</form>
 		</Body>

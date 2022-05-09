@@ -1,12 +1,49 @@
 import styled from "styled-components";
+import { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function Withdrawn() {
+	const type = "withdrawn";
+	const navigate = useNavigate();
+
+	//States
+	const [value, setValue] = useState(0);
+	const [description, setDescription] = useState("");
 	return (
 		<Body>
 			<p>Nova saída</p>
-			<form>
-				<input type='text' placeholder='Valor' />
-				<input type='text' placeholder='Descrição' />
+			<form
+				onSubmit={(e) => {
+					e.preventDefault();
+					const data = {
+						value: value,
+						description: description,
+						type: type,
+					};
+					console.log(data);
+					const promise = axios.post("https://proj-mywallet.herokuapp.com/transition", data, {
+						headers: {
+							Authorization: `Bearer ${localStorage.getItem("token")}`,
+						},
+					});
+					promise.then(() => navigate("/"));
+					promise.catch(() => console.log("probleminha"));
+				}}>
+				<input
+					type='number'
+					placeholder='Valor'
+					onChange={(e) => {
+						setValue(e.target.value);
+					}}
+				/>
+				<input
+					type='text'
+					placeholder='Descrição'
+					onChange={(e) => {
+						setDescription(e.target.value);
+					}}
+				/>
 				<button>Salvar Saída</button>
 			</form>
 		</Body>
@@ -38,7 +75,7 @@ const Body = styled.div`
 			border-radius: 10px;
 			border: none;
 
-            padding: 15px;
+			padding: 15px;
 			font-family: "Raleway";
 			font-style: normal;
 			font-weight: 400;
@@ -48,7 +85,7 @@ const Body = styled.div`
 			color: #000000;
 		}
 		button {
-            height: 50px;
+			height: 50px;
 			background: #a328d6;
 			border-radius: 10px;
 			border: none;
