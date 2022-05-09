@@ -23,10 +23,13 @@ export default function SignUp() {
 						email,
 						password,
 					};
-					const promise = axios.post("https://proj-mywallet.herokuapp.com/sign-up", login);
+					const promise = axios.post(
+						"https://proj-mywallet.herokuapp.com/sign-up",
+						login,
+					);
 					promise.then((response) => {
 						localStorage.setItem("token", response.data);
-						navigate("/login");
+						navigate("/sign-up");
 					});
 					promise.catch((error) => {
 						setCampoErrado(!campoErrado);
