@@ -33,55 +33,50 @@ export default function Home() {
 		});
 	}, []);
 
-	return;
-	{
-		user === null ? (
-			<></>
-		) : (
-			<Body>
-				<Top>
-					<p>{`Olá, ${user.name}`}</p>
-					<ion-icon
-						name='exit-outline'
-						onClick={() => {
-							localStorage.removeItem("token");
-							navigate("/sign-in");
-						}}></ion-icon>
-				</Top>
-				<Middle>
-					{bankdata.map((element) => {
-						return (
-							<Description type={element.type}>
-								<div id='description'>
-									<div>{element.day}</div>
-									<div>{element.description}</div>
-								</div>
-								<div>{element.value}</div>
-							</Description>
-						);
-					})}
-				</Middle>
-				<Floor>
-					<Link
-						to='/deposit'
-						style={{ textDecoration: "none", color: "white" }}>
-						<div>
-							<ion-icon name='add-circle-outline'></ion-icon>
-							<p>Nova Entrada</p>
-						</div>
-					</Link>
-					<Link
-						to='/withdrawn'
-						style={{ textDecoration: "none", color: "white" }}>
-						<div>
-							<ion-icon name='remove-circle-outline'></ion-icon>
-							<p>Nova Saída</p>
-						</div>
-					</Link>
-				</Floor>
-			</Body>
-		);
-	}
+	return user === null ? (
+		<></>
+	) : (
+		<Body>
+			<Top>
+				<p>{`Olá, ${user.name}`}</p>
+				<ion-icon
+					name='exit-outline'
+					onClick={() => {
+						localStorage.removeItem("token");
+						navigate("/sign-in");
+					}}></ion-icon>
+			</Top>
+			<Middle>
+				{bankdata.map((element) => {
+					return (
+						<Description type={element.type}>
+							<div id='description'>
+								<div>{element.day}</div>
+								<div>{element.description}</div>
+							</div>
+							<div>{element.value}</div>
+						</Description>
+					);
+				})}
+			</Middle>
+			<Floor>
+				<Link to='/deposit' style={{ textDecoration: "none", color: "white" }}>
+					<div>
+						<ion-icon name='add-circle-outline'></ion-icon>
+						<p>Nova Entrada</p>
+					</div>
+				</Link>
+				<Link
+					to='/withdrawn'
+					style={{ textDecoration: "none", color: "white" }}>
+					<div>
+						<ion-icon name='remove-circle-outline'></ion-icon>
+						<p>Nova Saída</p>
+					</div>
+				</Link>
+			</Floor>
+		</Body>
+	);
 }
 
 const Body = styled.main`
