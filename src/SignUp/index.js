@@ -29,7 +29,7 @@ export default function SignUp() {
 					);
 					promise.then((response) => {
 						localStorage.setItem("token", response.data);
-						navigate("/sign-up");
+						navigate("/sign-in");
 					});
 					promise.catch((error) => {
 						setCampoErrado(!campoErrado);
